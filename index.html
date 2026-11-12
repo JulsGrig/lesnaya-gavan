@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Лесная гавань — учебное бронирование</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <h1 class="logo">🌲 Лесная гавань</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ФИЛЬТРЫ -->
+    <section class="filters" aria-label="Фильтры">
+      <div class="filters__field">
+        <label for="filterGuests">Гостей не меньше</label>
+        <input id="filterGuests" type="number" min="1" max="10" step="1" value="1" />
+      </div>
+      <div class="filters__field">
+        <label for="filterPrice">Цена за ночь до, ₽</label>
+        <input id="filterPrice" type="number" min="0" step="500" value="20000" />
+      </div>
+      <button id="resetFilters" type="button" class="btn btn--ghost">Сбросить фильтры</button>
+    </section>
+
+    <div id="filterMessage" class="filter-message" role="status" aria-live="polite"></div>
+
+    <!-- СХЕМА + КАРТОЧКА -->
+    <section class="layout">
+      <div class="layout__map">
+        <h2 class="section-title">Схема посёлка</h2>
+        <div class="map" id="map" aria-label="Схема посёлка">
+          <div class="map__lake">Озеро</div>
+          <div class="map__road"></div>
+          <!-- дома добавляются JS -->
+        </div>
+        <div class="legend" aria-label="Легенда">
+          <span class="legend__item"><span class="dot dot--free"></span> свободен</span>
+          <span class="legend__item"><span class="dot dot--selected"></span> выбран</span>
+          <span class="legend__item"><span class="dot dot--busy"></span> занят</span>
+        </div>
+      </div>
+
+      <aside class="layout__card">
+        <h2 class="section-title">Карточка дома</h2>
+        <div id="card" class="card card--empty">
+          <p>Выберите дом на схеме или в списке ниже.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- СПИСОК -->
+    <section class="list-section">
+      <h2 class="section-title">Дома в наличии</h2>
+      <ul id="houseList" class="house-list" aria-label="Список домов"></ul>
+      <p id="listEmpty" class="empty-hint" hidden>По фильтрам ничего не найдено. Измените условия.</p>
+    </section>
+
+    <!-- МОИ БРОНИ -->
+    <section class="bookings-section">
+      <div class="bookings-header">
+        <h2 class="section-title">Мои брони</h2>
+        <button id="resetDemo" type="button" class="btn btn--danger">Сбросить демо</button>
+      </div>
+      <p id="bookingsEmpty" class="empty-hint">Пока броней нет.</p>
+      <ul id="bookingsList" class="bookings-list"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

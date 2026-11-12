@@ -1,0 +1,272 @@
+:root {
+  --bg: #f6f3ea;
+  --panel: #ffffff;
+  --text: #2f3a2c;
+  --muted: #6b7a63;
+  --accent: #4c7a3f;
+  --accent-soft: #dfe9d3;
+  --danger: #b3423a;
+  --danger-soft: #f6dcd9;
+  --busy: #b0b0b0;
+  --shadow: 0 4px 16px rgba(47, 58, 44, 0.12);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container { width: min(1200px, 100%); margin: 0 auto; padding: 0 16px 40px; }
+
+.header { background: var(--accent); color: #fff; padding: 18px 0; }
+.header__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; justify-content: space-between; }
+.logo { margin: 0; font-size: 1.5rem; }
+.header__note {
+  margin: 0;
+  font-size: 0.85rem;
+  background: rgba(255,255,255,0.18);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.section-title { margin: 0 0 12px; font-size: 1.15rem; }
+
+/* Фильтры */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  background: var(--panel);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-top: 24px;
+}
+.filters__field { display: flex; flex-direction: column; gap: 4px; }
+.filters__field label { font-size: 0.85rem; color: var(--muted); }
+.filters__field input {
+  padding: 8px 10px;
+  border: 1px solid #cfd6c6;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 160px;
+}
+
+.filter-message { min-height: 1.4em; margin: 8px 2px 0; color: var(--danger); font-size: 0.9rem; }
+
+/* Кнопки */
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+}
+.btn:hover { filter: brightness(1.05); }
+.btn:focus-visible { outline: 3px solid #2f3a2c; outline-offset: 2px; }
+.btn--ghost { background: transparent; color: var(--accent); border-color: var(--accent); }
+.btn--danger { background: var(--danger); }
+.btn:disabled { background: var(--busy); cursor: not-allowed; }
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Карта */
+.map {
+  position: relative;
+  background: linear-gradient(180deg, #e7efd8, #d3e3b9);
+  border-radius: var(--radius);
+  min-height: 420px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 2px dashed #b8c99a;
+}
+.map__lake {
+  position: absolute;
+  right: 6%;
+  top: 10%;
+  width: 34%;
+  height: 34%;
+  background: radial-gradient(circle at 40% 40%, #9cc9e6, #5fa4cf);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+.map__road {
+  position: absolute;
+  inset: 62% 0 auto 0;
+  height: 42px;
+  background: #e5dcc4;
+  border-top: 2px dashed #cbbf9b;
+  border-bottom: 2px dashed #cbbf9b;
+}
+
+.house-btn {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  height: 74px;
+  border-radius: 14px;
+  border: 2px solid var(--accent);
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.15;
+  padding: 4px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.house-btn:hover:not(:disabled) { transform: translate(-50%, -50%) scale(1.06); }
+.house-btn:focus-visible { outline: 3px solid #2f3a2c; outline-offset: 2px; }
+.house-btn__icon { font-size: 1.3rem; }
+.house-btn__status { font-size: 0.65rem; font-weight: 700; }
+.house-btn--selected {
+  background: var(--accent-soft);
+  border-color: #2f3a2c;
+  box-shadow: 0 0 0 4px rgba(76,122,63,0.35), var(--shadow);
+}
+.house-btn--busy {
+  background: #ececec;
+  border-color: #999;
+  color: #6b6b6b;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+.house-btn--busy .house-btn__status { color: var(--danger); }
+.house-btn--hidden { display: none; }
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.legend__item { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot--free { background: #fff; border: 2px solid var(--accent); }
+.dot--selected { background: var(--accent-soft); border: 2px solid #2f3a2c; }
+.dot--busy { background: #ececec; border: 2px solid #999; }
+
+/* Карточка */
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.card--empty { color: var(--muted); }
+.card h3 { margin: 0 0 6px; }
+.card__meta { color: var(--muted); font-size: 0.9rem; margin: 0 0 12px; }
+.card__desc { margin: 0 0 16px; }
+
+.form-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.form-field label { font-size: 0.85rem; color: var(--muted); }
+.form-field input {
+  padding: 8px 10px;
+  border: 1px solid #cfd6c6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.form-error { color: var(--danger); font-size: 0.85rem; min-height: 1.1em; margin: 0; }
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 14px;
+  background: var(--accent-soft);
+  border-radius: 10px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+.total__value { font-size: 1.25rem; }
+
+/* Список */
+.house-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.house-item {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  text-align: left;
+  border: 2px solid transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.house-item:hover:not(:disabled) { border-color: var(--accent-soft); }
+.house-item:focus-visible { outline: 3px solid #2f3a2c; outline-offset: 2px; }
+.house-item--selected { border-color: #2f3a2c; background: var(--accent-soft); }
+.house-item--busy { cursor: not-allowed; background: #f3f3f3; color: #6b6b6b; }
+.house-item__row { display: flex; justify-content: space-between; gap: 8px; }
+.house-item__status { font-size: 0.8rem; font-weight: 700; }
+.house-item--busy .house-item__status { color: var(--danger); }
+.house-item--hidden { display: none; }
+
+/* Брони */
+.bookings-section { margin-top: 32px; }
+.bookings-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.bookings-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.booking {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.booking__info { display: flex; flex-direction: column; gap: 2px; font-size: 0.95rem; }
+.booking__num { color: var(--muted); font-size: 0.8rem; }
+.booking__sum { font-weight: 700; }
+.empty-hint { color: var(--muted); font-size: 0.95rem; }
+
+.footer-note { margin-top: 32px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+
+/* Мобильная версия */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .map { min-height: 360px; }
+  .filters__field input { width: 100%; }
+  .filters { flex-direction: column; align-items: stretch; }
+}
